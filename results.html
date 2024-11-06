@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados da Pesquisa</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <h1 class="logo">Resultados da Pesquisa</h1>
+    <button class="menu-btn" onclick="toggleDrawer()">☰</button>
+    <nav class="drawer" id="drawer">
+      <a href="index.html">Home</a>
+      <a href="#">Sobre</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <section class="product-gallery" id="results-gallery">
+    <!-- Os resultados da pesquisa serão inseridos aqui -->
+  </section>
+
+  <script>
+    // Função para carregar os resultados da pesquisa
+    function loadSearchResults() {
+      const results = JSON.parse(localStorage.getItem('searchResults')) || [];
+      const resultsGallery = document.getElementById('results-gallery');
+
+      if (results.length === 0) {
+        resultsGallery.innerHTML = "<p>Nenhum produto encontrado.</p>";
+      } else {
+        results.forEach(product => {
+          const productCard = `
+            <div class="product-card">
+              <img src="${product.img}" alt="${product.name}">
+              <h2>${product.name}</h2>
+              <p>${product.price}</p>
+              <button class="buy-btn">Comprar</button>
+            </div>
+          `;
+          resultsGallery.innerHTML += productCard;
+        });
+      }
+    }
+
+    // Carregar resultados ao iniciar a página
+    window.onload = loadSearchResults;
+  </script>
+
+</body>
+</html>
